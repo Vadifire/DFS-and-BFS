@@ -71,12 +71,11 @@ public class Main {
 	}
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
-		
-		// TODO some code
+		MyQueue queue=new MyQueue();
+		ArrayList<String> ladder = new ArrayList<String>();
 		Set<String> dict = makeDictionary();
-		// TODO more code
-		
-		return null; // replace this line later with real return
+
+		return ladder; // replace this line later with real return
 	}
     
 	public static Set<String>  makeDictionary () {
