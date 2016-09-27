@@ -36,6 +36,10 @@ public class Main {
 		initialize();
 		
 		// TODO methods to read in words, output ladder
+		
+		ArrayList<String> input = parse(kb);	//input gets the 2 keyboard input words,that is - start and end
+		String start = input.get(0);	// start get first word
+		String end = input.get(1);	// end get second word
 	}
 	
 	public static void initialize() {
@@ -50,8 +54,10 @@ public class Main {
 	 * If command is /quit, return empty ArrayList. 
 	 */
 	public static ArrayList<String> parse(Scanner keyboard) {
-		// TO DO
-		return null;
+		ArrayList<String> words= new ArrayList<String>();	// words are the 2 words to return
+		words.add(keyboard.nextLine());
+		words.add(keyboard.nextLine());
+		return words;
 	}
 	
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
@@ -66,12 +72,11 @@ public class Main {
 	}
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
-		
-		// TODO some code
+		MyQueue queue=new MyQueue();
+		ArrayList<String> ladder = new ArrayList<String>();
 		Set<String> dict = makeDictionary();
-		// TODO more code
-		
-		return null; // replace this line later with real return
+
+		return ladder; // replace this line later with real return
 	}
     
 	public static Set<String>  makeDictionary () {
