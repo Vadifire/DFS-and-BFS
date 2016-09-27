@@ -1,8 +1,8 @@
 /* WORD LADDER Main.java
  * EE422C Project 3 submission by
- * Cedric Debelle
- * cfd363 
- * 16445
+ * Name: Cedric Debelle
+ * EID: cfd363 
+ * Unique: 16445
  * <Student2 Name>
  * <Student2 EID>
  * <Student2 5-digit Unique No.>
