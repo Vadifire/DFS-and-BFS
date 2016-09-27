@@ -3,9 +3,9 @@
  * Name: Cedric Debelle
  * EID: cfd363 
  * Unique: 16445
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
+ * Gilad Croll
+ * GC24654
+ * 16445
  * Slip days used: <0>
  * Git URL: https://github.com/Vadifire/EE422C-Lab-3.git
  * Fall 2016
