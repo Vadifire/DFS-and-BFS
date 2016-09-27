@@ -36,6 +36,10 @@ public class Main {
 		initialize();
 		
 		// TODO methods to read in words, output ladder
+		
+		ArrayList<String> input = parse(kb);	//input gets the 2 keyboard input words,that is - start and end
+		String start = input.get(1);	// start get first word
+		String end = input.get(2);	// end get second word
 	}
 	
 	public static void initialize() {
@@ -50,8 +54,9 @@ public class Main {
 	 * If command is /quit, return empty ArrayList. 
 	 */
 	public static ArrayList<String> parse(Scanner keyboard) {
-		// TO DO
-		return null;
+		ArrayList<String> words= new ArrayList<String>();	// words are the 2 words to return
+		
+		return words;
 	}
 	
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
