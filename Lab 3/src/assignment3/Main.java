@@ -40,6 +40,8 @@ public class Main {
 		ArrayList<String> input = parse(kb);	//input gets the 2 keyboard input words,that is - start and end
 		String start = input.get(0);	// start get first word
 		String end = input.get(1);	// end get second word
+		
+		int Test_Cedric = 4;
 	}
 	
 	public static void initialize() {
