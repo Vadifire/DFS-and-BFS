@@ -41,7 +41,7 @@ public class Main {
 		String start = input.get(0);	// start get first word
 		String end = input.get(1);	// end get second word
 		
-		int Test_Cedric = 4;
+		int Test_Cedric = 6;
 	}
 	
 	public static void initialize() {
