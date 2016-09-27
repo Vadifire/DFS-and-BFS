@@ -42,6 +42,7 @@ public class Main {
 		String end = input.get(1);	// end get second word
 		int Test_Gilad = 5;
 		int Test_Cedric = 6;
+		int GiladBranch = 7;
 	}
 	
 	public static void initialize() {
