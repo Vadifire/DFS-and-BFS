@@ -21,7 +21,7 @@ public class Main {
 	// static variables and constants only here.
 	
 	public static void main(String[] args) throws Exception {
-		System.out.println("Hello Gilard.");
+		System.out.println("Hello Gilad.");
 		Scanner kb;	// input Scanner for commands
 		PrintStream ps;	// output file
 		// If arguments are specified, read/write from/to files instead of Std IO.
