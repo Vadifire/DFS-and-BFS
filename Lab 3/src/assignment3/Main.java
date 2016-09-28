@@ -128,6 +128,7 @@ public class Main {
 			
 		}
 		//System.out.println("Reached a dead end.");
+		ladder.remove(curWord);
 		return new ArrayList<String>(); //could not find ladder down this branch
 	}
 
