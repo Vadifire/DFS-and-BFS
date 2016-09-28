@@ -18,7 +18,8 @@ import java.io.*;
 
 public class Main {
 	
-	// static variables and constants only here.
+	static String start;	// start is first word
+	static String end;	// end is second word
 	
 	public static void main(String[] args) throws Exception {
 		Scanner kb;	// input Scanner for commands
@@ -37,8 +38,8 @@ public class Main {
 		// TODO methods to read in words, output ladder
 		
 		ArrayList<String> input = parse(kb);	//input gets the 2 keyboard input words,that is - start and end
-		String start = input.get(0);	// start get first word
-		String end = input.get(1);	// end get second word
+		start = input.get(0);	// start get first word
+		end = input.get(1);	// end get second word
 
 		//TESTING
 		printLadder(getWordLadderDFS(start,end)); //(NOTE: Must have .txt files in project directory)
