@@ -18,8 +18,8 @@ import java.io.*;
 
 public class Main {
 	
-	static String start;	// start is first word
-	static String end;	// end is second word
+	static String startGlobal;	// start is first word
+	static String endGlobal;	// end is second word
 	
 	public static void main(String[] args) throws Exception {
 		Scanner kb;	// input Scanner for commands
@@ -38,12 +38,12 @@ public class Main {
 		// TODO methods to read in words, output ladder
 		
 		ArrayList<String> input = parse(kb);	//input gets the 2 keyboard input words,that is - start and end
-		start = input.get(0);	// start get first word
-		end = input.get(1);	// end get second word
+		startGlobal = input.get(0);	// start get first word
+		endGlobal = input.get(1);	// end get second word
 
 		//TESTING
-		printLadder(getWordLadderBFS(start,end)); //(NOTE: Must have .txt files in project directory)
-		printLadder(getWordLadderDFS(start,end)); //(NOTE: Must have .txt files in project directory)
+		printLadder(getWordLadderBFS(startGlobal,endGlobal)); //(NOTE: Must have .txt files in project directory)
+		printLadder(getWordLadderDFS(startGlobal,endGlobal)); //(NOTE: Must have .txt files in project directory)
 		
 	}
 	
@@ -99,8 +99,11 @@ public class Main {
 	
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
+    	startGlobal= start;
+    	endGlobal = end;
 		MyQueue queue=new MyQueue();
 		ArrayList<String> ladder = new ArrayList<String>();
+		ladder.add(start);
 		Set<String> dict = makeDictionary();
 		int found =0;
 		addWordsToQueue(dict,start,queue, ladder);
@@ -112,7 +115,6 @@ public class Main {
 				found =1;
 			addWordsToQueue(dict,current,queue, ladder);
 		}
-		ladder.remove(ladder.size()-1);	//remove last element, which is equal to end and going to be printed there
 		return ladder; // replace this line later with real return
 	}
     
@@ -147,17 +149,15 @@ public class Main {
 		 * for the purposes of printing if that is the case.
 		 * **** Fixed **** please approve
 		 */
-		if (size == 0){ //empty
+		if (size <= 2){ //empty
 			System.out.println("no word ladder can be found between <start> and <end>.");
 		}
 		else{
-			System.out.println("a "+size+"-rung word ladder exists between "+start.toLowerCase()+" and "
-		+end.toLowerCase()+".");
-			System.out.println(start.toLowerCase());
+			System.out.println("a "+(size-2)+"-rung word ladder exists between "+startGlobal.toLowerCase()+" and "
+		+endGlobal.toLowerCase()+".");
 			for (int i = 0; i < size; i++){
 				System.out.println(ladder.get(i).toLowerCase());
 			}
-			System.out.println(end.toLowerCase());
 		}
 	}
 	
