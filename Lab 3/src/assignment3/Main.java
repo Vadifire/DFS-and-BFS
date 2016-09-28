@@ -68,6 +68,9 @@ public class Main {
 			inputStream = inputStream.replaceAll(" ", ""); //Trim string of white space
 			inputStream = inputStream.replaceAll("\n", "");
 			inputStream = inputStream.replaceAll("\t", "");
+			if (inputStream.equalsIgnoreCase("/quit")){
+				System.exit(0);
+			}
 		}
 		while (inputStream.length() < 10);
 		
@@ -114,20 +117,17 @@ public class Main {
 		for (int i = 0; i < vs.length; i++){ //Check through all strings in dict
 			String s = vs[i].getString();
 			if (differByOne(curWord, s) && !vs[i].isVisited()){ //Valid jump to make
-				//System.out.println("Jumped to string "+s);
 				vs[i].setVisited(true);
 				if (curWord.equalsIgnoreCase(end)){
 					return ladder; //Found end
 				}
 				else{
-					ArrayList<String> resultLadder = recursiveDFS(ladder,vs,s,end);
+					ArrayList<String> resultLadder = recursiveDFS(ladder,vs,s,end); //Explore possible paths
 					if (resultLadder.size() != 0)
 						return resultLadder;
 				}
 			}
-			
 		}
-		//System.out.println("Reached a dead end.");
 		ladder.remove(curWord);
 		return new ArrayList<String>(); //could not find ladder down this branch
 	}
