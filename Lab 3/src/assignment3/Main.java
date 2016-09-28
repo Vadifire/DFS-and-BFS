@@ -101,7 +101,21 @@ public class Main {
 		MyQueue queue=new MyQueue();
 		ArrayList<String> ladder = new ArrayList<String>();
 		Set<String> dict = makeDictionary();
-
+		int found =0;
+		addWordsToQueue(dict,start,queue, ladder);
+		while (!queue.isEmpty() && found==0){
+			String current = queue.peek(); 
+			ladder = queue.peekLadder();
+			queue.remove();
+			if (current.equals(end))
+				found =1;
+			addWordsToQueue(dict,current,queue, ladder);
+		}
+		if (found == 1)
+			System.out.println("Success");
+		else
+			System.out.println("No Success");
+		
 		return ladder; // replace this line later with real return
 	}
     
