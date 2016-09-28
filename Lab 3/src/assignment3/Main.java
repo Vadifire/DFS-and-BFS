@@ -144,20 +144,23 @@ public class Main {
 		int size = ladder.size();
 		
 		/*
-		 * TODO: Fix implementation of displaying empty list message.
+		 * TODO: Fix implementation of displaying empty list message. 
 		 * I.E. Will <start> and <end> be stored as global static variables? DFS and BFS return empty lists
 		 * if no ladder can be created, but maybe it would be useful to pass a ladder with start and end to this method
 		 * for the purposes of printing if that is the case.
+		 * **** Fixed **** please approve
 		 */
-		if (size < 2){ //empty
+		if (size == 0){ //empty
 			System.out.println("no word ladder can be found between <start> and <end>.");
 		}
 		else{
-			System.out.println("a "+size+"-rung word ladder exists between "+ladder.get(0).toLowerCase()+" and "
-		+ladder.get(size-1).toLowerCase()+".");
+			System.out.println("a "+size+"-rung word ladder exists between "+start.toLowerCase()+" and "
+		+end.toLowerCase()+".");
+			System.out.println(start.toLowerCase());
 			for (int i = 0; i < size; i++){
 				System.out.println(ladder.get(i).toLowerCase());
 			}
+			System.out.println(end.toLowerCase());
 		}
 	}
 	
