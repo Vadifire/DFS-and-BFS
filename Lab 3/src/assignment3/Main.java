@@ -111,11 +111,7 @@ public class Main {
 				found =1;
 			addWordsToQueue(dict,current,queue, ladder);
 		}
-		if (found == 1)
-			System.out.println("Success");
-		else
-			System.out.println("No Success");
-		
+		ladder.remove(ladder.size()-1);	//remove last element, which is equal to end and going to be printed there
 		return ladder; // replace this line later with real return
 	}
     
