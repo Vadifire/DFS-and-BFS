@@ -18,8 +18,9 @@ import java.io.*;
 
 public class Main {
 	
-	static String startGlobal;	// start is first word
-	static String endGlobal;	// end is second word
+	// static variables and constants only here.
+	public static String startGlobal;
+	public static String endGlobal;
 	
 	public static void main(String[] args) throws Exception {
 		Scanner kb;	// input Scanner for commands
@@ -34,16 +35,14 @@ public class Main {
 			ps = System.out;			// default to Stdout
 		}
 		initialize();
-		
-		// TODO methods to read in words, output ladder
-		
+				
 		ArrayList<String> input = parse(kb);	//input gets the 2 keyboard input words,that is - start and end
-		startGlobal = input.get(0);	// start get first word
-		endGlobal = input.get(1);	// end get second word
+		String start = input.get(0);	// start get first word
+		String end = input.get(1);	// end get second word
 
 		//TESTING
-		printLadder(getWordLadderBFS(startGlobal,endGlobal)); //(NOTE: Must have .txt files in project directory)
-		printLadder(getWordLadderDFS(startGlobal,endGlobal)); //(NOTE: Must have .txt files in project directory)
+		printLadder(getWordLadderDFS(start,end)); //(NOTE: Must have .txt files in project directory)
+		printLadder(getWordLadderBFS(start,end)); //(NOTE: Must have .txt files in project directory)
 		
 	}
 	
@@ -82,25 +81,61 @@ public class Main {
 	}
 	
 	/*
+	 * Attempts to create path from start to end composed of words that each vary in 1 letter to adjacent elements.
+	 * Returns empty ArrayList<String> if no ladder can be made.
 	 * @param String start is the first word
 	 * @param String end is the final word
 	 * @returns ArrayList ladder to trace the path from start to end. Empty list if no path exists.
 	 */
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
 		Set<String> dict = makeDictionary();
+		startGlobal = start; //Initialize global vars
+		endGlobal = end;
+		VisitableString[] vs = new VisitableString[dict.size()]; //Used to keep track of which strings have been visited
+		int i=0;
+		for (String s : dict){
+			vs[i] = new VisitableString(s, s.equalsIgnoreCase(start));
+			i++;
+		}
 		
 		ArrayList<String> ladder = new ArrayList<String>();
-		ladder.add(start);
-		//TODO: Recursive DFS to look for ladder
-		ladder.add(end);
-		return ladder;
+		return recursiveDFS(ladder,vs,start,end);
+	}
+	
+	/*
+	 * Recursively looks through branches until a branch reaches end, or all branches have reached dead ends.
+	 * @param ArrayList<String> ladder keeps track of the word "path" we have taken in attempting to reach end
+	 * @param VisitableString[] vs keeps track of which strings have been visited.
+	 * @param String curWord is the word we have hopped to in our path.
+	 * @param String end is the desired word to path to.
+	 */
+	public static ArrayList<String> recursiveDFS(ArrayList<String> ladder, VisitableString[] vs, String curWord, String end){
+		ladder.add(curWord);
+		for (int i = 0; i < vs.length; i++){ //Check through all strings in dict
+			String s = vs[i].getString();
+			if (differByOne(curWord, s) && !vs[i].isVisited()){ //Valid jump to make
+				//System.out.println("Jumped to string "+s);
+				vs[i].setVisited(true);
+				if (curWord.equalsIgnoreCase(end)){
+					return ladder; //Found end
+				}
+				else{
+					ArrayList<String> resultLadder = recursiveDFS(ladder,vs,s,end);
+					if (resultLadder.size() != 0)
+						return resultLadder;
+				}
+			}
+			
+		}
+		//System.out.println("Reached a dead end.");
+		return new ArrayList<String>(); //could not find ladder down this branch
 	}
 
 	
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
-    	startGlobal= start;
-    	endGlobal = end;
+		startGlobal = start; //Initialize global vars
+		endGlobal = end;
 		MyQueue queue=new MyQueue();
 		ArrayList<String> ladder = new ArrayList<String>();
 		ladder.add(start);
@@ -141,26 +176,22 @@ public class Main {
 	 */
 	public static void printLadder(ArrayList<String> ladder) {
 		int size = ladder.size();
-		
-		/*
-		 * TODO: Fix implementation of displaying empty list message. 
-		 * I.E. Will <start> and <end> be stored as global static variables? DFS and BFS return empty lists
-		 * if no ladder can be created, but maybe it would be useful to pass a ladder with start and end to this method
-		 * for the purposes of printing if that is the case.
-		 * **** Fixed **** please approve
-		 */
-		if (size <= 2){ //empty
-			System.out.println("no word ladder can be found between <start> and <end>.");
+		if (size < 2){ //empty
+			if (startGlobal != null && endGlobal != null){
+				System.out.println("no word ladder can be found between "+startGlobal+" and "+endGlobal+".");
+			}
+			else{ //Should ideally never occur.
+				System.out.println("no word ladder can be found between <start> and <end>.");
+			}
 		}
 		else{
-			System.out.println("a "+(size-2)+"-rung word ladder exists between "+startGlobal.toLowerCase()+" and "
-		+endGlobal.toLowerCase()+".");
+			System.out.println("a "+size+"-rung word ladder exists between "+ladder.get(0).toLowerCase()+" and "
+		+ladder.get(size-1).toLowerCase()+".");
 			for (int i = 0; i < size; i++){
 				System.out.println(ladder.get(i).toLowerCase());
 			}
 		}
 	}
-	
 	/**
 	 * @param word
 	 * @param dictWord
@@ -178,7 +209,6 @@ public class Main {
 			return true;
 		return false;
 	}
-	
 	/**
 	 * adds to the queue all the words that differ by one from word
 	 * @param dict
@@ -188,7 +218,7 @@ public class Main {
 			s=s.toLowerCase();
 		 	if (differByOne(word,s) && !s.equals(word)){	//make sure that they differ by one, and not goes back to parent 
 				queue.add(s, ladder);
-		    		}
+		    }
 		}
 	}
 	
