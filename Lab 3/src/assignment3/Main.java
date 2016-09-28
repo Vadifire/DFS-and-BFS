@@ -70,8 +70,8 @@ public class Main {
 		}
 		while (inputStream.length() < 10);
 		
-		start = inputStream.substring(0,5);
-		end = inputStream.substring(5,10);
+		start = inputStream.substring(0,5).toLowerCase();
+		end = inputStream.substring(5,10).toLowerCase();
 		//System.out.println(start);
 		//System.out.println(end);
 		words.add(start);
@@ -138,9 +138,10 @@ public class Main {
 			System.out.println("no word ladder can be found between <start> and <end>.");
 		}
 		else{
-			System.out.println("a "+size+"-rung word ladder exists between "+ladder.get(0)+" and "+ladder.get(size-1)+".");
+			System.out.println("a "+size+"-rung word ladder exists between "+ladder.get(0).toLowerCase()+" and "
+		+ladder.get(size-1).toLowerCase()+".");
 			for (int i = 0; i < size; i++){
-				System.out.println(ladder.get(i));
+				System.out.println(ladder.get(i).toLowerCase());
 			}
 		}
 	}
