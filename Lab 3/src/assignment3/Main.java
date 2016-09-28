@@ -183,10 +183,11 @@ public class Main {
 	 * adds to the queue all the words that differ by one from word
 	 * @param dict
 	 */
-	private static void addWordsToQueue(Set<String> dict, String word, MyQueue queue){
+	private static void addWordsToQueue(Set<String> dict, String word, MyQueue queue, ArrayList<String> ladder){
 		for (String s : dict) {
-		    if (differByOne(word,s))
-		    	queue.add(s);
+		    if (differByOne(word,s) && !s.equals(word)){	//make sure that they differ by one, and not goes back to parent 
+		    	queue.add(s, ladder);
+		    }
 		}
 	}
 	
