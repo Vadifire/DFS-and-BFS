@@ -100,8 +100,10 @@ public class Main {
 			vs[i] = new VisitableString(s, s.equalsIgnoreCase(start));
 			i++;
 		}
-		
+
 		ArrayList<String> ladder = new ArrayList<String>();
+		if (start.equalsIgnoreCase(end))
+			return ladder;
 		return recursiveDFS(ladder,vs,start,end);
 	}
 	
@@ -139,6 +141,8 @@ public class Main {
 		endGlobal = end;
 		MyQueue queue=new MyQueue();
 		ArrayList<String> ladder = new ArrayList<String>();
+		if (start.equalsIgnoreCase(end))
+			return ladder;
 		ladder.add(start);
 		Set<String> dict = makeDictionary();
 		int found =0;
