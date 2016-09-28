@@ -2,6 +2,10 @@ package assignment3;
 
 import java.util.NoSuchElementException;
 
+/*
+ * MyQueue class is used to manage BFS search
+ * @author Gilad
+ */
 public class MyQueue {
 	private static class QueueNode<T>{
 		private String data;
