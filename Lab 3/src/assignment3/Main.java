@@ -42,6 +42,7 @@ public class Main {
 		end = input.get(1);	// end get second word
 
 		//TESTING
+		printLadder(getWordLadderBFS(start,end)); //(NOTE: Must have .txt files in project directory)
 		printLadder(getWordLadderDFS(start,end)); //(NOTE: Must have .txt files in project directory)
 		
 	}
@@ -165,9 +166,9 @@ public class Main {
 	 * @param dictWord
 	 * @returns true if word and dictWord differ by exactly one letter 
 	 */
-	private static boolean differByOne (String word, String dictWord){
+	private static boolean differByOne (String word1, String dictWord){
 		int dif=0;	// dif represents the amount of different letters
-		word = word.toLowerCase(); //Added to ignore case sensitivity.
+		String word = new String(word1.toLowerCase()); //Added to ignore case sensitivity.
 		dictWord = dictWord.toLowerCase();
 		for (int i=0; i<word.length();i++){
 			if (word.charAt(i)!=dictWord.charAt(i))
