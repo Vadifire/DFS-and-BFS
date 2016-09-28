@@ -21,7 +21,6 @@ public class Main {
 	// static variables and constants only here.
 	
 	public static void main(String[] args) throws Exception {
-		System.out.println("Hello Gilad.");
 		Scanner kb;	// input Scanner for commands
 		PrintStream ps;	// output file
 		// If arguments are specified, read/write from/to files instead of Std IO.
@@ -40,15 +39,17 @@ public class Main {
 		ArrayList<String> input = parse(kb);	//input gets the 2 keyboard input words,that is - start and end
 		String start = input.get(0);	// start get first word
 		String end = input.get(1);	// end get second word
-		int Test_Gilad = 5;
-		int Test_Cedric = 6;
-		//My Branch has been created. 
+
+		//TESTING
+		printLadder(getWordLadderDFS(start,end)); //(NOTE: Must have .txt files in project directory)
+		
 	}
 	
 	public static void initialize() {
 		// initialize your static variables or constants here.
 		// We will call this method before running our JUNIT tests.  So call it 
 		// only once at the start of main.
+		
 	}
 	
 	/**
@@ -58,21 +59,42 @@ public class Main {
 	 */
 	public static ArrayList<String> parse(Scanner keyboard) {
 		ArrayList<String> words= new ArrayList<String>();	// words are the 2 words to return
-		words.add(keyboard.nextLine());
-		words.add(keyboard.nextLine());
+		String inputStream = "";
+		String start, end;
+		
+		do {
+			inputStream = inputStream + keyboard.nextLine();
+			inputStream = inputStream.replaceAll(" ", ""); //Trim string of white space
+			inputStream = inputStream.replaceAll("\n", "");
+			inputStream = inputStream.replaceAll("\t", "");
+		}
+		while (inputStream.length() < 10);
+		
+		start = inputStream.substring(0,5);
+		end = inputStream.substring(5,10);
+		//System.out.println(start);
+		//System.out.println(end);
+		words.add(start);
+		words.add(end);
 		return words;
 	}
 	
+	/*
+	 * @param String start is the first word
+	 * @param String end is the final word
+	 * @returns ArrayList ladder to trace the path from start to end. Empty list if no path exists.
+	 */
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
-		
-		// Returned list should be ordered start to end.  Include start and end.
-		// Return empty list if no ladder.
-		// TODO some code
 		Set<String> dict = makeDictionary();
-		// TODO more code
 		
-		return null; // replace this line later with real return
+		ArrayList<String> ladder = new ArrayList<String>();
+		ladder.add(start);
+		//TODO: Recursive DFS to look for ladder
+		ladder.add(end);
+		return ladder;
 	}
+
+	
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
 		MyQueue queue=new MyQueue();
@@ -98,8 +120,29 @@ public class Main {
 		return words;
 	}
 	
+	
+	/*
+	 * Prints out ladder from lowest index to highest index
+	 * @param ArrayList  of ladder to print out
+	 */
 	public static void printLadder(ArrayList<String> ladder) {
+		int size = ladder.size();
 		
+		/*
+		 * TODO: Fix implementation of displaying empty list message.
+		 * I.E. Will <start> and <end> be stored as global static variables? DFS and BFS return empty lists
+		 * if no ladder can be created, but maybe it would be useful to pass a ladder with start and end to this method
+		 * for the purposes of printing if that is the case.
+		 */
+		if (size < 2){ //empty
+			System.out.println("no word ladder can be found between <start> and <end>.");
+		}
+		else{
+			System.out.println("a "+size+"-rung word ladder exists between "+ladder.get(0)+" and "+ladder.get(size-1)+".");
+			for (int i = 0; i < size; i++){
+				System.out.println(ladder.get(i));
+			}
+		}
 	}
 	
 	/**
@@ -109,6 +152,8 @@ public class Main {
 	 */
 	private static boolean differByOne (String word, String dictWord){
 		int dif=0;	// dif represents the amount of different letters
+		word = word.toLowerCase(); //Added to ignore case sensitivity.
+		dictWord = dictWord.toLowerCase();
 		for (int i=0; i<word.length();i++){
 			if (word.charAt(i)!=dictWord.charAt(i))
 				dif++;
