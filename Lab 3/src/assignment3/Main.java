@@ -101,6 +101,21 @@ public class Main {
 	public static void printLadder(ArrayList<String> ladder) {
 		
 	}
-	// TODO
-	// Other private static methods here
+	
+	/**
+	 * @param word
+	 * @param dictWord
+	 * @returns true if word and dictWord differ by exactly one letter 
+	 */
+	private boolean differByOne (String word, String dictWord){
+		int dif=0;	// dif represents the amount of different letters
+		for (int i=0; i<word.length();i++){
+			if (word.charAt(i)!=dictWord.charAt(i))
+				dif++;
+		}
+		if (dif == 1)
+			return true;
+		return false;
+	}
+	
 }
