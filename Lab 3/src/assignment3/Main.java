@@ -118,4 +118,15 @@ public class Main {
 		return false;
 	}
 	
+	/**
+	 * adds to the queue all the words that differ by one from word
+	 * @param dict
+	 */
+	private static void addWordsToQueue(Set<String> dict, String word, MyQueue queue){
+		for (String s : dict) {
+		    if (differByOne(word,s))
+		    	queue.add(s);
+		}
+	}
+	
 }
