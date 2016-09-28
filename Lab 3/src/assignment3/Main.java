@@ -185,9 +185,10 @@ public class Main {
 	 */
 	private static void addWordsToQueue(Set<String> dict, String word, MyQueue queue, ArrayList<String> ladder){
 		for (String s : dict) {
-		    if (differByOne(word,s) && !s.equals(word)){	//make sure that they differ by one, and not goes back to parent 
-		    	queue.add(s, ladder);
-		    }
+			s=s.toLowerCase();
+		 	if (differByOne(word,s) && !s.equals(word)){	//make sure that they differ by one, and not goes back to parent 
+				queue.add(s, ladder);
+		    		}
 		}
 	}
 	
