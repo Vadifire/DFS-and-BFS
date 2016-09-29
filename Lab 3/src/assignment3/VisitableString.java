@@ -21,7 +21,7 @@ import java.util.Set;
  * @author Cedric
  */
 
-public class VisitableString{
+public class VisitableString implements Comparable{
 	
 	private String string;
 	private boolean visited;
@@ -30,7 +30,7 @@ public class VisitableString{
 		string = s;
 		visited = v;
 	}
-
+	
 	/**
 	 * @return the visited
 	 */
@@ -67,6 +67,27 @@ public class VisitableString{
 			i++;
 		}
 		return vs;
+	}
+
+	@Override
+	//Main.endGlobal must be defined
+	public int compareTo(Object o) {
+		VisitableString other = (VisitableString)o;
+		int thisDiffFromEnd = 0;
+		int otherDiffFromEnd = 0;
+		String s1 = string.toLowerCase();
+		String s2 = other.string.toLowerCase();
+		for (int i = 0; i <s1.length(); i++){
+			if (s1.charAt(i)!=Main.endGlobal.charAt(i)){
+				thisDiffFromEnd++;
+			}
+		}
+		for (int i = 0; i <s2.length(); i++){
+			if (s2.charAt(i)!=Main.endGlobal.charAt(i)){
+				otherDiffFromEnd++;
+			}
+		}
+		return thisDiffFromEnd-otherDiffFromEnd;
 	}
 	
 }

@@ -93,7 +93,7 @@ public class Main {
 	public static ArrayList<String> getWordLadderDFS(String start, String end) {
 		Set<String> dict = makeDictionary();
 		startGlobal = start; //Initialize global vars
-		endGlobal = end;
+		endGlobal = end.toLowerCase(); //needs to be lower case for CompareTo function in vs
 		VisitableString[] vs = VisitableString.createVisitArray(dict,start);
 
 		ArrayList<String> ladder = new ArrayList<String>();
@@ -101,6 +101,7 @@ public class Main {
 			return ladder;
 		return recursiveDFS(ladder,vs,start,end);
 	}
+	
 	
 	/*
 	 * Recursively looks through branches until a branch reaches end, or all branches have reached dead ends.
@@ -111,26 +112,31 @@ public class Main {
 	 */
 	public static ArrayList<String> recursiveDFS(ArrayList<String> ladder, VisitableString[] vs, String curWord, String end){
 		ladder.add(curWord);
+		ArrayList<VisitableString> jumpOptions = new ArrayList<VisitableString>();
 		for (int i = 0; i < vs.length; i++){ //Check through all strings in vs (dictionary)
 			String s = vs[i].getString();
 			if (differByOne(curWord, s) && !vs[i].isVisited()){ //Valid jump to make
+				jumpOptions.add(vs[i]);
 				vs[i].setVisited(true);
-				if (s.equalsIgnoreCase(end)){
-					ladder.add(s);
-					return ladder; //Found end
-				}
-				else{
-					ArrayList<String> resultLadder = recursiveDFS(ladder,vs,s,end); //Explore possible paths
-					if (resultLadder.size() != 0)
-						return resultLadder;
-				}
+			}
+		}
+		Collections.sort(jumpOptions); //Sort to optimize order of options
+		for (VisitableString vsJump : jumpOptions){ //Explore every option
+			String s = vsJump.getString();
+			if (s.equalsIgnoreCase(end)){
+				ladder.add(s);
+				return ladder; //Found end
+			}
+			else{
+				ArrayList<String> resultLadder = recursiveDFS(ladder,vs,s,end); //Explore path
+				if (resultLadder.size() != 0)
+					return resultLadder;
 			}
 		}
 		ladder.remove(curWord); //Dead end
 		return new ArrayList<String>(); //could not find ladder down this branch
 	}
 
-	
 	
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
 		startGlobal = start; //Initialize global vars
