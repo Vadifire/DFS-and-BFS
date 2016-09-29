@@ -94,12 +94,7 @@ public class Main {
 		Set<String> dict = makeDictionary();
 		startGlobal = start; //Initialize global vars
 		endGlobal = end;
-		VisitableString[] vs = new VisitableString[dict.size()]; //Used to keep track of which strings have been visited
-		int i=0;
-		for (String s : dict){
-			vs[i] = new VisitableString(s, s.equalsIgnoreCase(start));
-			i++;
-		}
+		VisitableString[] vs = VisitableString.createVisitArray(dict,start);
 
 		ArrayList<String> ladder = new ArrayList<String>();
 		if (start.equalsIgnoreCase(end))
@@ -116,7 +111,7 @@ public class Main {
 	 */
 	public static ArrayList<String> recursiveDFS(ArrayList<String> ladder, VisitableString[] vs, String curWord, String end){
 		ladder.add(curWord);
-		for (int i = 0; i < vs.length; i++){ //Check through all strings in dict
+		for (int i = 0; i < vs.length; i++){ //Check through all strings in vs (dictionary)
 			String s = vs[i].getString();
 			if (differByOne(curWord, s) && !vs[i].isVisited()){ //Valid jump to make
 				vs[i].setVisited(true);
@@ -146,16 +141,21 @@ public class Main {
 			return ladder;
 		ladder.add(start);
 		Set<String> dict = makeDictionary();
-		int found =0;
-		addWordsToQueue(dict,start,queue, ladder);
-		while (!queue.isEmpty() && found==0){
+		boolean found = false;
+		VisitableString[] vs = VisitableString.createVisitArray(dict,start);
+
+		addWordsToQueue(vs,start,queue, ladder);
+		
+		while (!queue.isEmpty() && !found){
 			String current = queue.peek(); 
 			ladder = queue.peekLadder();
 			queue.remove();
 			if (current.equals(end))
-				found =1;
-			addWordsToQueue(dict,current,queue, ladder);
+				found = true;
+			addWordsToQueue(vs,current,queue, ladder);
 		}
+		if (!found)
+			return new ArrayList<String>(); //could not find ladder down this branch
 		return ladder; // replace this line later with real return
 	}
     
@@ -181,7 +181,7 @@ public class Main {
 	 * @returns if the word ladder is valid in each character being changed by 1 char a time
 	 */
 	public static boolean isValid(ArrayList<String> ladder){
-		if (ladder.size()<2)
+		if (ladder.size()<3)
 			return false;
 		boolean first = true;
 		String previous = "";
@@ -214,7 +214,7 @@ public class Main {
 			}
 		}
 		else{
-			System.out.println("a "+size+"-rung word ladder exists between "+ladder.get(0).toLowerCase()+" and "
+			System.out.println("a "+(size-2)+"-rung word ladder exists between "+ladder.get(0).toLowerCase()+" and "
 		+ladder.get(size-1).toLowerCase()+".");
 			for (int i = 0; i < size; i++){
 				System.out.println(ladder.get(i).toLowerCase());
@@ -243,14 +243,15 @@ public class Main {
 	 * adds to the queue all the words that differ by one from word
 	 * @param dict
 	 */
-	private static void addWordsToQueue(Set<String> dict, String word, MyQueue queue, ArrayList<String> ladder){
-		for (String s : dict) {
-			s=s.toLowerCase();
-		 	if (differByOne(word,s) && !s.equals(word)){	//make sure that they differ by one, and not goes back to parent 
+private static void addWordsToQueue(VisitableString[] vs, String word, MyQueue queue, ArrayList<String> ladder){
+		for (int i = 0; i < vs.length; i++){
+			String s = vs[i].getString().toLowerCase();		
+		 	if (differByOne(word,s) && !vs[i].isVisited()){	//make sure that they differ by one, and not goes back to parent 
 				queue.add(s, ladder);
+				vs[i].setVisited(true);
 		    }
 		}
-		queue.printQueue();
+		//queue.printQueue();
 	}
 	
 }

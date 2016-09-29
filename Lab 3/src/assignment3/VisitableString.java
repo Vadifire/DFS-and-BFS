@@ -1,5 +1,6 @@
 package assignment3;
 
+import java.util.Set;
 
 /*
  * VisitableString class is used for recursive DFS.
@@ -43,6 +44,16 @@ public class VisitableString{
 	 */
 	public void setString(String s) {
 		this.string = s;
+	}
+	
+	public static VisitableString[] createVisitArray(Set<String> dict, String start){
+		VisitableString[] vs = new VisitableString[dict.size()]; //Used to keep track of which strings have been visited
+		int i=0;
+		for (String s : dict){
+			vs[i] = new VisitableString(s, s.equalsIgnoreCase(start));
+			i++;
+		}
+		return vs;
 	}
 	
 }
