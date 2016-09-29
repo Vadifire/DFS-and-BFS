@@ -42,7 +42,7 @@ public class Main {
 
 		//TESTING
 		printLadder(getWordLadderDFS(start,end)); //(NOTE: Must have .txt files in project directory)
-		printLadder(getWordLadderBFS(start,end)); //(NOTE: Must have .txt files in project directory)
+		printLadder(getWordLadderBFS(start,end)); //(NOTE: Must have .txt files in project directory)*/
 		
 	}
 	
@@ -120,7 +120,8 @@ public class Main {
 			String s = vs[i].getString();
 			if (differByOne(curWord, s) && !vs[i].isVisited()){ //Valid jump to make
 				vs[i].setVisited(true);
-				if (curWord.equalsIgnoreCase(end)){
+				if (s.equalsIgnoreCase(end)){
+					ladder.add(s);
 					return ladder; //Found end
 				}
 				else{
@@ -130,7 +131,7 @@ public class Main {
 				}
 			}
 		}
-		ladder.remove(curWord);
+		ladder.remove(curWord); //Dead end
 		return new ArrayList<String>(); //could not find ladder down this branch
 	}
 
@@ -174,6 +175,29 @@ public class Main {
 		return words;
 	}
 	
+	/*
+	 * Used to test validity of ladder
+	 * @param ArrayList<string> ladder to analyze
+	 * @returns if the word ladder is valid in each character being changed by 1 char a time
+	 */
+	public static boolean isValid(ArrayList<String> ladder){
+		if (ladder.size()<2)
+			return false;
+		boolean first = true;
+		String previous = "";
+		for (String s : ladder){
+			if (first){
+				first = false;
+			}
+			else if (!differByOne(previous,s)){
+				System.out.println(previous+" and "+s+" do not differ by 1. Ladder is invalid.");
+				return false;
+			}
+			previous = s;
+		}
+		System.out.println("Ladder is valid.");
+		return true;
+	}
 	
 	/*
 	 * Prints out ladder from lowest index to highest index
@@ -196,6 +220,7 @@ public class Main {
 				System.out.println(ladder.get(i).toLowerCase());
 			}
 		}
+		//isValid(ladder);
 	}
 	/**
 	 * @param word
@@ -225,6 +250,7 @@ public class Main {
 				queue.add(s, ladder);
 		    }
 		}
+		queue.printQueue();
 	}
 	
 }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class MyQueue {
-	public static class QueueNode<String>{
+	public static class QueueNode{
 		private String data;
-		private QueueNode<String> next;
-		private QueueNode<String> father;
+		private QueueNode next;
+		private QueueNode father;
 		private ArrayList<String> ladder;
 		public QueueNode(String data, ArrayList<String> dadLadder) {
 			this.data = data;
@@ -16,11 +16,28 @@ public class MyQueue {
 		}
 	}
 	
-	private QueueNode<String> first;
-	private QueueNode<String> last;
+	/*
+	 * Prints Queue in easy to read format; useful for debugging.
+	 */
+	public void printQueue(){
+		if (isEmpty()){
+			System.out.println("Queue is empty.");
+		}
+		QueueNode q = first;
+		String output = "";
+		while (q != null){
+			output+=(q.data+", ");
+			q = q.next;
+		}
+		System.out.println("["+output.substring(0,output.length()-2)+"]");
+	}
+
+	private QueueNode first;
+	private QueueNode last;
+	
 	
 	public void add(String str, ArrayList<String> dadLadder){
-		QueueNode<String> node = new QueueNode<String>(str, dadLadder);
+		QueueNode node = new QueueNode(str, dadLadder);
 		if (last !=null)
 			last.next = node;
 		last = node;
@@ -31,7 +48,7 @@ public class MyQueue {
 	
 
 	
-	public QueueNode<java.lang.String> remove(){
+	public QueueNode remove(){
 		if (first == null) throw new NoSuchElementException();
 		first = first.next;
 		if (first == null)
