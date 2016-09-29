@@ -1,3 +1,15 @@
+/* WORD LADDER MyQueue.java
+ * EE422C Project 3 submission by
+ * Name: Cedric Debelle
+ * EID: cfd363 
+ * Unique: 16445
+ * Gilad Croll
+ * GC24654
+ * 16445
+ * Slip days used: <0>
+ * Git URL: https://github.com/Vadifire/EE422C-Lab-3.git
+ * Fall 2016
+ */
 package assignment3;
 
 import java.util.ArrayList;
