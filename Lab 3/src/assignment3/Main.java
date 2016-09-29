@@ -138,6 +138,14 @@ public class Main {
 	}
 
 	
+	/*
+	 * Analyzes every word 1 difference away until those options are exhausted, then
+	 * looking at words 2 differences away from the original.
+	 * Uses MyQueue to queue up words to analyze
+	 * Also uses VisitableString to keep track of which words don't need to be analyzed again
+	 * @param String start is the word the search looks from.
+	 * @param String end is the desired word to path to.
+	 */
     public static ArrayList<String> getWordLadderBFS(String start, String end) {
 		startGlobal = start; //Initialize global vars
 		endGlobal = end;
